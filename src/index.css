@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 210 15% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 15% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 15% 20%;
+
+    /* Teal/Turquoise - Primary Brand Color (inspired by Bexon) */
+    --primary: 174 70% 41%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 174 70% 51%;
+    --primary-dark: 174 70% 31%;
+
+    /* Teal Accent for CTAs */
+    --secondary: 174 70% 41%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 174 70% 51%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 10% 45%;
+
+    --accent: 174 70% 41%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success Green for Trust Badges */
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+
+    /* Dark backgrounds for testimonials */
+    --dark-bg: 192 27% 15%;
+    --dark-card: 192 25% 18%;
+
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 174 70% 41%;
+
+    --radius: 0.5rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(174 70% 41%), hsl(174 70% 51%));
+    --gradient-hero: linear-gradient(135deg, hsl(174 70% 41% / 0.95), hsl(174 70% 51% / 0.95));
+    --gradient-card: linear-gradient(to bottom, hsl(0 0% 100%), hsl(210 20% 98%));
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-primary: 0 10px 30px -10px hsl(174 70% 41% / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .dark {
+    --background: 210 30% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 210 25% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 210 25% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 174 70% 51%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 174 70% 51%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 15%;
+    --muted-foreground: 210 10% 65%;
+
+    --accent: 174 70% 51%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 70% 50%;
+    --success-foreground: 0 0% 100%;
+
+    --dark-bg: 192 27% 15%;
+    --dark-card: 192 25% 18%;
+
+    --border: 210 20% 20%;
+    --input: 210 20% 20%;
+    --ring: 174 70% 51%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
