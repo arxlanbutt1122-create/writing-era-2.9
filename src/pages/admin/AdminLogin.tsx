@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from '@/hooks/use-toast';
 import { Loader2, Lock } from 'lucide-react';
+import SEO from '@/components/SEO';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -54,13 +55,18 @@ export default function AdminLogin() {
 
   if (authLoading) {
     return (
+      <>
+        <SEO title="Admin Login | WritingEra" description="Secure admin access page." path="/admin/login" noindex />
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
+      </>
     );
   }
 
   return (
+    <>
+      <SEO title="Admin Login | WritingEra" description="Secure admin access page." path="/admin/login" noindex />
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-2 text-center">
@@ -108,5 +114,6 @@ export default function AdminLogin() {
         </CardContent>
       </Card>
     </div>
+    </>
   );
 }
