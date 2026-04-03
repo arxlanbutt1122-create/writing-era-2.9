@@ -8,8 +8,10 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar, ArrowRight, Search, Loader2 } from "lucide-react";
-import { Helmet } from "react-helmet";
+import SEO from "@/components/SEO";
+import blogHeroImage from "@/assets/blog-hero-new.jpg";
 import { supabase } from "@/integrations/supabase/client";
+import { webpageSchema } from "@/utils/structuredData";
 
 interface BlogPost {
   id: string;
@@ -143,17 +145,19 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Blog - Writing Tips, Stories & Guides | WritingEra</title>
-        <meta name="description" content="Explore expert writing tips, storytelling techniques, author biographies, and novel writing guides from WritingEra's blog." />
-      </Helmet>
+    <div className="min-h-screen bg-background">      <SEO
+        title="Blog | WritingEra"
+        description="Read WritingEra articles, writing tips, storytelling ideas, biographies, and creative writing resources."
+        path="/blog"
+        type="article"
+        schema={webpageSchema({ title: "Blog | WritingEra", description: "Read WritingEra articles, writing tips, storytelling ideas, biographies, and creative writing resources.", url: "https://www.writingera.com/blog" })}
+      />
       
       <Navigation />
       
       <section 
         className="relative py-20 md:py-28 bg-cover bg-center"
-        style={{ backgroundImage: "url('/src/assets/blog-hero-new.jpg')" }}
+        style={{ backgroundImage: `url(${blogHeroImage})` }}
       >
         <div className="absolute inset-0 bg-black/40" />
         <div className="container mx-auto px-4 text-center relative z-10">

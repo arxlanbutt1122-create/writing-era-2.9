@@ -3,8 +3,9 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Globe, Brain, BookOpen, Code, Calculator, MessageSquare } from "lucide-react";
-import { Helmet } from "react-helmet";
+import SEO from "@/components/SEO";
 import heroImage from "@/assets/tools-hero-professional.jpg";
+import { webpageSchema } from "@/utils/structuredData";
 
 const Tools = () => {
   const tools = [
@@ -28,11 +29,13 @@ const Tools = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Sir Arslan Asif - Professional Writing Tools | WritingEra</title>
-        <meta name="description" content="Free writing tools including word counter, smart reference formatter, grammar checker resources, citation generators, and plagiarism information." />
-      </Helmet>
+    <div className="min-h-screen bg-background">      <SEO
+        title="Writing Tools | WritingEra"
+        description="Use WritingEra tools like word counter, reference formatter, citation generator, PDF editor, resume builder, and more."
+        path="/tools"
+        keywords={["writing tools", "citation generator", "word counter", "reference formatter", "resume builder"]}
+        schema={webpageSchema({ title: "Writing Tools | WritingEra", description: "Use WritingEra tools like word counter, reference formatter, citation generator, PDF editor, resume builder, and more.", url: "https://www.writingera.com/tools" })}
+      />
       
       <Navigation />
       

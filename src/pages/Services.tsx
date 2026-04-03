@@ -7,8 +7,11 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { services, categories } from "@/data/servicesData";
+import { getServiceKeywords } from "@/utils/serviceContent";
 import servicesHeroImage from "@/assets/services-hero-new.jpg";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import SEO from "@/components/SEO";
+import { webpageSchema } from "@/utils/structuredData";
 
 const Services = () => {
   const [activeCategory, setActiveCategory] = useState("Academic Writing");
@@ -20,6 +23,13 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Writing Services | WritingEra"
+        description="Explore WritingEra writing services for assignment writing, essay help, research papers, dissertations, reports, proofreading, resumes, and business documents across multiple categories."
+        path="/services"
+        keywords={["writing services", "assignment writing service", "assignment help", "essay writing service", "essay help", "research paper writing", "dissertation writing service", "report writing service", "proofreading services", "business writing services", "resume writing service", "editing services"]}
+        schema={webpageSchema({ title: "Writing Services | WritingEra", description: "Explore WritingEra writing services for assignments, essays, research papers, dissertations, reports, proofreading, business plans, resumes, and more across multiple categories.", url: "https://www.writingera.com/services" })}
+      />
       <Navigation />
 
       {/* Hero Section */}
@@ -39,7 +49,7 @@ const Services = () => {
             Comprehensive Writing Solutions
           </h1>
           <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-white font-medium" style={{ textShadow: '0 3px 8px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.8)' }}>
-            Choose from 45+ professional writing services across 8 categories. All backed by our quality guarantee and FREE Turnitin report.
+            Explore 59 writing and editing solutions across academic, business, admissions, research, and content categories. Popular requests include assignment writing service, essay help, research paper writing, dissertation support, report writing, proofreading, and resume writing.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-white">
             {["100% Original", "On-Time Delivery", "24/7 Support", "Money-Back Guarantee"].map((item, index) => (
@@ -77,7 +87,7 @@ const Services = () => {
                     {category} Services
                   </h2>
                   <p className="text-muted-foreground">
-                    {filteredServices.length} professional services available
+                    {filteredServices.length} professional services available in this category
                   </p>
                 </div>
 
@@ -174,6 +184,69 @@ const Services = () => {
               </TabsContent>
             ))}
           </Tabs>
+        </div>
+      </section>
+
+
+      <section className="py-16 border-t border-border/60">
+        <div className="container mx-auto px-4 grid lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-5">
+            <h2 className="font-heading font-bold text-3xl text-foreground">Choose the right service for your brief, level, and deadline</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              This page is built to help you compare services quickly instead of guessing which category fits your requirement. You can browse assignment writing support for coursework and university tasks, essay writing for structured academic arguments, research paper writing for source-based projects, report writing for formal submissions, and proofreading for final draft improvement.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              If your main requirement is <strong>assignment writing service</strong>, begin with our <Link to="/services/assignment-writing" className="text-primary underline underline-offset-4">Assignment Writing Service</Link> page. For related needs, explore <Link to="/services/essay-writing" className="text-primary underline underline-offset-4">Essay Writing Service</Link>, <Link to="/services/research-paper" className="text-primary underline underline-offset-4">Research Paper Writing</Link>, <Link to="/services/report-writing" className="text-primary underline underline-offset-4">Academic Report Writing</Link>, and <Link to="/services/dissertation-writing" className="text-primary underline underline-offset-4">Dissertation Writing</Link>.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              We also support resumes, cover letters, SOP writing, website content, SEO content writing, technical documentation, business plans, and editing services for clients who need professional documents beyond academic work.
+            </p>
+          </div>
+          <Card>
+            <CardHeader>
+              <h3 className="font-heading font-semibold text-2xl">Popular search topics</h3>
+            </CardHeader>
+            <CardContent className="flex flex-wrap gap-2">
+              {Array.from(new Set(services.flatMap((service) => getServiceKeywords(service)).slice(0, 24))).map((keyword) => (
+                <Badge key={keyword} variant="secondary">{keyword}</Badge>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <section className="py-16 bg-muted/40">
+        <div className="container mx-auto px-4">
+          <h2 className="font-heading font-bold text-3xl mb-6">Frequently Asked Questions</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                q: "Which page should I visit for assignment writing help?",
+                a: "Use the Assignment Writing Service page for coursework, university tasks, reports, and deadline-based submissions. It is the main commercial page for assignment-writing intent.",
+              },
+              {
+                q: "Do all service pages include pricing and deliverables?",
+                a: "Yes. We have strengthened service pages with clearer overviews, included features, FAQs, and internal links so visitors can compare services faster.",
+              },
+              {
+                q: "Can I order a custom brief instead of a standard package?",
+                a: "Yes. If your requirement does not fit a listed category, use the contact or order page and share your instructions for a custom quote.",
+              },
+              {
+                q: "Which services are most popular for students?",
+                a: "Students most often choose assignment writing, essay writing, research paper writing, report writing, dissertation help, thesis help, editing, and proofreading depending on the stage of their work.",
+              },
+            ].map((item) => (
+              <Card key={item.q}>
+                <CardHeader>
+                  <h3 className="font-semibold text-xl">{item.q}</h3>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">{item.a}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -11,8 +11,9 @@ import {
   Mail, Phone, MapPin, MessageCircle, Clock, 
   Facebook, Twitter, Linkedin, Instagram, Send, Star 
 } from "lucide-react";
-import { Helmet } from "react-helmet";
+import SEO from "@/components/SEO";
 import { toast } from "@/hooks/use-toast";
+import { webpageSchema } from "@/utils/structuredData";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -92,11 +93,13 @@ Message: ${formData.message}`;
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Contact WritingEra - Get Your Free Quote | 24/7 Support</title>
-        <meta name="description" content="Contact WritingEra for academic and business writing services. Get a free quote, 24/7 support available via WhatsApp, email, or phone. Located in Lahore, Pakistan." />
-      </Helmet>
+    <div className="min-h-screen bg-background">      <SEO
+        title="Contact WritingEra"
+        description="Contact WritingEra for custom quotes, order questions, deadlines, and support for academic and business writing projects."
+        path="/contact"
+        keywords={["contact writing service", "assignment help contact", "essay writing support", "research paper help", "dissertation help", "custom quote writing service"]}
+        schema={webpageSchema({ title: "Contact WritingEra", description: "Contact WritingEra for custom quotes, order questions, deadlines, and support for academic and business writing projects.", url: "https://www.writingera.com/contact" })}
+      />
       
       <Navigation />
       

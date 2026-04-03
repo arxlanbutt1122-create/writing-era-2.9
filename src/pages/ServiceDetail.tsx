@@ -1,4 +1,4 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, Navigate } from "react-router-dom";
 import { services } from "@/data/servicesData";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -6,35 +6,31 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, ArrowLeft, ShieldCheck, Target, Gift, DollarSign } from "lucide-react";
-import { Helmet } from "react-helmet";
+import SEO from "@/components/SEO";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import { serviceSchema, breadcrumbSchema, faqSchema } from "@/utils/structuredData";
+import { serviceSchema, breadcrumbSchema, faqSchema, webpageSchema } from "@/utils/structuredData";
+import { getServiceBenefits, getServiceFaqs, getServiceKeywords, getServiceLongDescription, getServiceUses } from "@/utils/serviceContent";
 
 const ServiceDetail = () => {
   const { serviceId } = useParams();
   const navigate = useNavigate();
   const { convertPrice, convertPerWordPrice } = useCurrency();
   
-  const service = services.find(s => s.id === serviceId);
+  const normalizedServiceId = serviceId === "coursework-help" ? "assignment-writing" : serviceId;
+  const service = services.find((s) => s.id === normalizedServiceId);
 
-  const serviceFAQs = [
-    {
-      question: `What is included in the ${service?.title}?`,
-      answer: service?.attributes?.join(', ') || 'All essential features are included.'
-    },
-    {
-      question: "How long does it take to complete?",
-      answer: "Delivery time varies based on complexity and urgency. Standard delivery is 5-7 days, with rush options available."
-    },
-    {
-      question: "Do you provide revisions?",
-      answer: "Yes! We offer unlimited FREE revisions until you're completely satisfied with the work."
-    },
-    {
-      question: "Is the work plagiarism-free?",
-      answer: "Absolutely! All work is 100% original and comes with a FREE Turnitin report for verification."
-    }
-  ];
+  if (serviceId === "coursework-help") {
+    return <Navigate to="/services/assignment-writing" replace />;
+  }
+
+  const serviceFAQs = service ? getServiceFaqs(service) : [];
+  const longDescription = service ? getServiceLongDescription(service) : "";
+  const longDescriptionParagraphs = longDescription
+    ? longDescription.split(/\n\n+/).map((paragraph) => paragraph.trim()).filter(Boolean)
+    : [];
+  const serviceUses = service ? getServiceUses(service) : [];
+  const serviceBenefits = service ? getServiceBenefits(service) : [];
+  const serviceKeywords = service ? getServiceKeywords(service) : [];
   
   if (!service) {
     return (
@@ -57,32 +53,22 @@ const ServiceDetail = () => {
     .slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>{service.title} - WritingEra</title>
-        <meta name="description" content={service.metaDescription} />
-        <meta name="keywords" content={service.seoTags?.join(', ')} />
-        <meta property="og:title" content={`${service.title} - WritingEra`} />
-        <meta property="og:description" content={service.metaDescription} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://writingera.com/services/${service.id}`} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${service.title} - WritingEra`} />
-        <meta name="twitter:description" content={service.metaDescription} />
-        <script type="application/ld+json">
-          {JSON.stringify(serviceSchema(service))}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema([
-            { name: 'Home', url: 'https://writingera.com' },
-            { name: 'Services', url: 'https://writingera.com/services' },
-            { name: service.title, url: `https://writingera.com/services/${service.id}` }
-          ]))}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(faqSchema(serviceFAQs))}
-        </script>
-      </Helmet>
+    <div className="min-h-screen bg-background">      <SEO
+        title={`${service.title} | WritingEra`}
+        description={service.metaDescription}
+        path={`/services/${service.id}`}
+        keywords={serviceKeywords}
+        schema={[
+          webpageSchema({ title: `${service.title} | WritingEra`, description: service.metaDescription, url: `https://www.writingera.com/services/${service.id}` }),
+          serviceSchema(service),
+          breadcrumbSchema([
+            { name: "Home", url: "https://www.writingera.com" },
+            { name: "Services", url: "https://www.writingera.com/services" },
+            { name: service.title, url: `https://www.writingera.com/services/${service.id}` }
+          ]),
+          faqSchema(serviceFAQs)
+        ]}
+      />
       
       <Navigation />
       
@@ -176,21 +162,25 @@ const ServiceDetail = () => {
               <CardDescription>Complete details about this service</CardDescription>
             </CardHeader>
             <CardContent className="space-y-8">
-              {service.explainedDescription && (
+              {longDescriptionParagraphs.length > 0 && (
                 <div>
                   <h3 className="font-semibold text-xl mb-4">Detailed Description</h3>
-                  <p className="text-muted-foreground leading-relaxed">{service.explainedDescription}</p>
+                  <div className="space-y-4 text-muted-foreground leading-relaxed">
+                    {longDescriptionParagraphs.map((paragraph, idx) => (
+                      <p key={idx}>{paragraph}</p>
+                    ))}
+                  </div>
                 </div>
               )}
 
-              {service.uses && service.uses.length > 0 && (
+              {serviceUses.length > 0 && (
                 <div>
                   <div className="flex items-center gap-2 mb-4">
                     <Target className="h-6 w-6 text-primary" />
                     <h3 className="font-semibold text-xl">Perfect For:</h3>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-3">
-                    {service.uses.map((use, idx) => (
+                    {serviceUses.map((use, idx) => (
                       <div key={idx} className="flex items-start gap-2">
                         <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                         <span>{use}</span>
@@ -200,14 +190,14 @@ const ServiceDetail = () => {
                 </div>
               )}
 
-              {service.benefits && service.benefits.length > 0 && (
+              {serviceBenefits.length > 0 && (
                 <div>
                   <div className="flex items-center gap-2 mb-4">
                     <Gift className="h-6 w-6 text-secondary" />
                     <h3 className="font-semibold text-xl">Why Choose This Service:</h3>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-3">
-                    {service.benefits.map((benefit, idx) => (
+                    {serviceBenefits.map((benefit, idx) => (
                       <div key={idx} className="flex items-start gap-2">
                         <CheckCircle className="h-5 w-5 text-secondary mt-0.5 flex-shrink-0" />
                         <span>{benefit}</span>
@@ -226,6 +216,17 @@ const ServiceDetail = () => {
                         <CheckCircle className="h-5 w-5 text-success mt-0.5 flex-shrink-0" />
                         <span>{attr}</span>
                       </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {serviceKeywords.length > 0 && (
+                <div>
+                  <h3 className="font-semibold text-xl mb-4">Related Search Topics</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {serviceKeywords.slice(0, 12).map((keyword) => (
+                      <Badge key={keyword} variant="secondary">{keyword}</Badge>
                     ))}
                   </div>
                 </div>
@@ -262,6 +263,24 @@ const ServiceDetail = () => {
               )}
             </CardContent>
           </Card>
+        </section>
+
+
+        {/* FAQ Section */}
+        <section className="container mx-auto px-4 mb-16">
+          <h2 className="font-heading font-bold text-3xl mb-6">Frequently Asked Questions</h2>
+          <div className="grid gap-4">
+            {serviceFAQs.map((faq, index) => (
+              <Card key={index}>
+                <CardHeader>
+                  <CardTitle className="text-lg">{faq.question}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </section>
 
         {/* Variations */}

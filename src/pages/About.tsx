@@ -8,9 +8,10 @@ import {
   Heart, TrendingUp, Globe, Zap, BookOpen, Star 
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import SEO from "@/components/SEO";
 import aboutHeroImage from "@/assets/about-hero-new.jpg";
 import founderImage from "@/assets/founder-arslan.jpg";
+import { organizationSchema, webpageSchema } from "@/utils/structuredData";
 
 const About = () => {
   const values = [
@@ -63,11 +64,13 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>About WritingEra - Expert Writing Services Founded by Arslan</title>
-        <meta name="description" content="Learn about WritingEra's mission to provide quality academic and business writing services. Founded by Arslan, serving UK, UAE, USA, EU, and Pakistan with 5000+ successful projects." />
-      </Helmet>
+    <div className="min-h-screen bg-background">      <SEO
+        title="About WritingEra | Expert Writing Services"
+        description="Learn about WritingEra, our writing standards, quality process, and mission to support students and professionals with reliable writing services."
+        path="/about"
+        keywords={["about writingera", "academic writing company", "professional writing services", "assignment writing support", "essay writing service", "business writing services"]}
+        schema={[organizationSchema, webpageSchema({ title: "About WritingEra | Expert Writing Services", description: "Learn about WritingEra, our writing standards, quality process, and mission to support students and professionals with reliable writing services.", url: "https://www.writingera.com/about" })]}
+      />
       
       <Navigation />
       
