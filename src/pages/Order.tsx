@@ -70,7 +70,7 @@ const Order = () => {
         title={service ? `Order ${service.title} | WritingEra` : "Place an Order | WritingEra"}
         description={service ? `Start your ${service.title.toLowerCase()} order with WritingEra. Share your deadline, instructions, and requirements to get started.` : "Place your writing order with WritingEra and share your project requirements, deadline, and instructions."}
         path={service ? `/order/${service.id}` : "/order"}
-        keywords={service ? [service.title.toLowerCase(), `${service.title.toLowerCase()} order`, `${service.title.toLowerCase()} online`, "writing order form", "custom writing order"] : ["place writing order", "order writing service", "assignment writing order", "essay writing order", "custom writing order"]}
+        noindex
       />
       
       <Navigation />
