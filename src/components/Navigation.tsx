@@ -63,9 +63,9 @@ const Navigation = () => {
               <Phone className="h-3.5 w-3.5 flex-shrink-0" />
               <span className="hidden lg:inline font-medium text-xs md:text-sm">+92 323-4827157</span>
             </a>
-            <a href="mailto:arslan@writingera.com" className="hidden md:flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <a href="mailto:windwalker125official@gmail.com" className="hidden md:flex items-center gap-2 hover:opacity-80 transition-opacity">
               <Mail className="h-3.5 w-3.5 flex-shrink-0" />
-              <span className="hidden lg:inline font-medium text-xs md:text-sm">arslan@writingera.com</span>
+              <span className="hidden lg:inline font-medium text-xs md:text-sm">windwalker125official@gmail.com</span>
             </a>
           </div>
           <div className="flex items-center gap-2 md:gap-3">
