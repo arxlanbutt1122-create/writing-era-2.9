@@ -62,10 +62,10 @@ const Footer = () => {
               Professional academic and business writing services trusted globally. Your success is our mission.
             </p>
             <a 
-              href="mailto:arslan@writingera.com" 
+              href="mailto:windwalker125official@gmail.com" 
               className="text-white hover:text-primary transition-colors text-lg font-medium"
             >
-              arslan@writingera.com
+              windwalker125official@gmail.com
             </a>
           </div>
 
@@ -159,8 +159,8 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                <a href="mailto:arslan@writingera.com" className="text-white/70 hover:text-primary transition-colors">
-                  arslan@writingera.com
+                <a href="mailto:windwalker125official@gmail.com" className="text-white/70 hover:text-primary transition-colors">
+                  windwalker125official@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -214,7 +214,7 @@ const Footer = () => {
               © {currentYear} WritingEra. All rights reserved.
             </p>
             <p className="text-white/50 text-xs mt-1">
-              Designed and Developed by <a href="https://waqarhabib.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-light transition-colors">Waqar Habib</a>
+              Designed and Developed by CEO M. Arslan Asif
             </p>
           </div>
 
