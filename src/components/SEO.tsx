@@ -9,7 +9,6 @@ type SEOProps = {
   description: string;
   path?: string;
   image?: string;
-  keywords?: string[];
   type?: "website" | "article";
   noindex?: boolean;
   schema?: Record<string, unknown> | Array<Record<string, unknown>>;
@@ -26,21 +25,19 @@ const SEO = ({
   description,
   path = "/",
   image = DEFAULT_OG_IMAGE,
-  keywords = [],
   type = "website",
   noindex = false,
   schema,
 }: SEOProps) => {
   const canonicalUrl = toAbsoluteUrl(path);
   const imageUrl = toAbsoluteUrl(image);
-  const robots = noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large";
+  const robots = noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
   return (
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="robots" content={robots} />
-      {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
       <link rel="canonical" href={canonicalUrl} />
 
       <meta property="og:site_name" content={SITE_NAME} />
@@ -49,11 +46,14 @@ const SEO = ({
       <meta property="og:type" content={type} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:image" content={imageUrl} />
+      <meta property="og:image:alt" content={title} />
+      <meta property="og:locale" content="en_US" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={imageUrl} />
+      <meta name="twitter:image:alt" content={title} />
 
       {schema && (
         <script type="application/ld+json">
