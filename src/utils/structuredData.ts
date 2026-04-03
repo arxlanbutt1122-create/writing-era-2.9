@@ -6,7 +6,7 @@ export const organizationSchema = {
   "description": "Professional academic and business writing services including essays, dissertations, research papers, editing, and business content.",
   "url": "https://www.writingera.com",
   "telephone": "+92-323-4827157",
-  "email": "arslan@writingera.com",
+  "email": "windwalker125official@gmail.com",
   "image": "https://www.writingera.com/og.jpg",
   "priceRange": "$$",
   "areaServed": ["PK", "UK", "US", "AE", "EU"]
