@@ -55,7 +55,7 @@ const Terms = () => {
             </section>
             <section>
               <h2 className="font-heading font-bold text-2xl mb-3">8. Contact Information</h2>
-              <p>For questions or disputes: arslan@writingera.com | +92 323-4827157 | WhatsApp available 24/7</p>
+              <p>For questions or disputes: windwalker125official@gmail.com | +92 323-4827157 | WhatsApp available 24/7</p>
             </section>
           </div>
         </div>

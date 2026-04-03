@@ -39,7 +39,7 @@ const CookiePolicy = () => {
             </section>
             <section>
               <h2 className="font-heading font-bold text-2xl mb-3">Contact Us</h2>
-              <p>Questions about our cookie policy? Email: arslan@writingera.com | Phone: +92 323-4827157</p>
+              <p>Questions about our cookie policy? Email: windwalker125official@gmail.com | Phone: +92 323-4827157</p>
             </section>
           </div>
         </div>

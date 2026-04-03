@@ -48,11 +48,11 @@ const RefundPolicy = () => {
             </section>
             <section>
               <h2 className="font-heading font-bold text-2xl mb-3">Refund Process</h2>
-              <p>To request a refund, email arslan@writingera.com with order details and reason. Refunds processed within 5-7 business days to original payment method.</p>
+              <p>To request a refund, email windwalker125official@gmail.com with order details and reason. Refunds processed within 5-7 business days to original payment method.</p>
             </section>
             <section>
               <h2 className="font-heading font-bold text-2xl mb-3">Contact for Refunds</h2>
-              <p>Email: arslan@writingera.com | Phone: +92 323-4827157 | Response within 24 hours</p>
+              <p>Email: windwalker125official@gmail.com | Phone: +92 323-4827157 | Response within 24 hours</p>
             </section>
           </div>
         </div>

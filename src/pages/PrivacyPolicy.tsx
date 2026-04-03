@@ -92,7 +92,7 @@ const PrivacyPolicy = () => {
               </p>
               <div className="mt-4 p-4 bg-muted rounded-lg">
                 <p className="text-foreground"><strong>WritingEra</strong></p>
-                <p className="text-foreground/80">Email: arslan@writingera.com</p>
+                <p className="text-foreground/80">Email: windwalker125official@gmail.com</p>
                 <p className="text-foreground/80">Phone: +92 323-4827157</p>
                 <p className="text-foreground/80">Address: Sant Nagar, Lahore, Pakistan</p>
               </div>

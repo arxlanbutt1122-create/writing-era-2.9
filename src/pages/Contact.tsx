@@ -264,10 +264,10 @@ Message: ${formData.message}`;
                     <div>
                       <h3 className="font-semibold mb-1">Email</h3>
                       <a 
-                        href="mailto:arslan@writingera.com" 
+                        href="mailto:windwalker125official@gmail.com" 
                         className="text-sm text-primary hover:underline"
                       >
-                        arslan@writingera.com
+                        windwalker125official@gmail.com
                       </a>
                     </div>
                   </div>
