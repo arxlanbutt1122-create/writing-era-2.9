@@ -3,127 +3,118 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import assignmentImage from "@/assets/services/assignment-writing.jpg";
 import essayImage from "@/assets/services/featured-essay.jpg";
 import researchImage from "@/assets/services/featured-research.jpg";
-import dissertationImage from "@/assets/services/dissertation-writing.jpg";
-import websiteContentImage from "@/assets/services/website-content.jpg";
-import editingImage from "@/assets/services/academic-edit.jpg";
+import thesisImage from "@/assets/services/featured-thesis.jpg";
+import businessImage from "@/assets/services/featured-business.jpg";
+import contentImage from "@/assets/services/featured-content.jpg";
+import editingImage from "@/assets/services/featured-editing.jpg";
 
 const FeaturedServices = () => {
   const { convertPrice, convertPerWordPrice } = useCurrency();
 
   const services = [
     {
-      image: assignmentImage,
-      title: "Assignment Writing Service",
-      description:
-        "Structured help for university assignments, coursework, reports, and urgent academic tasks.",
-      basePkr: 2800,
-      suffix: "/task",
-      link: "/services/assignment-writing",
-    },
-    {
       image: essayImage,
-      title: "Essay Writing Service",
-      description:
-        "Plagiarism-free essays for reflective, argumentative, analytical, and comparative briefs.",
+      title: "Essay Writing",
+      description: "A+ quality, plagiarism-free essays for all academic levels with proper citations.",
       basePkr: 4200,
       suffix: "/page",
       link: "/services/essay-writing",
     },
     {
       image: researchImage,
-      title: "Research Paper Writing",
-      description:
-        "Evidence-based papers with source evaluation, structure, citations, and academic formatting.",
+      title: "Research Papers",
+      description: "In-depth research papers with literature review, methodology, and analysis.",
       basePkr: 5600,
       suffix: "/page",
       link: "/services/research-paper",
     },
     {
-      image: dissertationImage,
-      title: "Dissertation Writing",
-      description:
-        "Chapter-level dissertation support for proposals, reviews, methodology, analysis, and discussion.",
-      basePkr: 56000,
+      image: thesisImage,
+      title: "Thesis Writing",
+      description: "Expert thesis support for Masters and PhD with chapter-by-chapter assistance.",
+      basePkr: 42000,
       suffix: "/chapter",
-      link: "/services/dissertation-writing",
+      link: "/services/thesis-writing",
     },
     {
-      image: websiteContentImage,
+      image: businessImage,
+      title: "Business Plans",
+      description: "Investor-ready business plans with market analysis and financial projections.",
+      basePkr: 56000,
+      suffix: "",
+      link: "/services/business-plan",
+    },
+    {
+      image: contentImage,
       title: "Website Content",
-      description:
-        "Commercial web copy for service pages, landing pages, and trust-building business websites.",
-      basePkr: 28000,
-      suffix: "/page",
+      description: "Website pages and business content written to explain your services clearly and professionally.",
+      basePkr: 2800,
+      suffix: "/500 words",
       link: "/services/website-content",
     },
     {
       image: editingImage,
-      title: "Academic Editing",
-      description:
-        "Editing and polishing for essays, reports, dissertations, and research drafts before submission.",
-      basePkr: 4200,
+      title: "Proofreading & Editing",
+      description: "Professional proofreading and academic editing for grammar, clarity, structure, and presentation.",
+      basePkr: 2240,
       suffix: "/page",
-      link: "/services/academic-editing",
+      link: "/services/proofreading",
     },
   ];
 
   return (
-    <section className="py-16 md:py-20">
+    <section className="py-16 md:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mb-10">
-          <Badge className="mb-4">Top categories</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Popular Services</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            These featured cards now point to real service URLs that exist in your service data. That matters
-            for internal linking, crawling, and user flow. The strongest homepage links should usually point to
-            money pages such as assignment writing, essays, research papers, dissertation support, business
-            writing, and editing.
+        <div className="mx-auto max-w-3xl text-center">
+          <Badge variant="secondary" className="mb-4">Popular choices</Badge>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Our Popular Services</h2>
+          <p className="mt-4 text-base leading-7 text-muted-foreground md:text-lg">
+            Explore some of the most requested writing and editing services on WritingEra,
+            from academic work and research support to business planning and content writing.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {services.map((service) => (
-            <Card key={service.link} className="overflow-hidden h-full flex flex-col">
-              <div className="relative aspect-[16/10] overflow-hidden">
+            <Card key={service.title} className="group flex h-full flex-col overflow-hidden border-primary/10 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+              <Link to={service.link} className="block overflow-hidden">
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                  className="h-56 w-full object-cover transition duration-300 group-hover:scale-105"
                 />
-                <Badge className="absolute top-3 left-3">FREE Turnitin</Badge>
-              </div>
+              </Link>
 
-              <CardHeader>
-                <h3 className="text-xl font-semibold">{service.title}</h3>
+              <CardHeader className="pb-3">
+                <Badge className="w-fit bg-primary/10 text-primary hover:bg-primary/10">FREE Turnitin</Badge>
+                <h3 className="mt-3 text-xl font-semibold">{service.title}</h3>
               </CardHeader>
 
-              <CardContent className="space-y-3 flex-1">
-                <p className="text-muted-foreground">{service.description}</p>
-                <div className="text-sm text-muted-foreground">
-                  From <span className="font-semibold text-foreground">{convertPrice(service.basePkr)}</span>
-                  {service.suffix}
+              <CardContent className="flex-1">
+                <p className="text-sm leading-7 text-muted-foreground">{service.description}</p>
+                <div className="mt-5 space-y-1">
+                  <p className="text-sm font-medium">From {convertPrice(service.basePkr)}{service.suffix}</p>
+                  <p className="text-sm text-muted-foreground">or {convertPerWordPrice()}</p>
                 </div>
-                <div className="text-sm text-muted-foreground">or {convertPerWordPrice()}</div>
               </CardContent>
 
-              <CardFooter className="flex gap-3">
+              <CardFooter className="flex gap-3 pt-0">
                 <Button asChild variant="outline" className="flex-1">
                   <Link to={service.link}>Learn More</Link>
                 </Button>
                 <Button asChild className="flex-1">
-                  <Link to={service.link}>Order Now</Link>
+                  <Link to="/order">Order Now</Link>
                 </Button>
               </CardFooter>
             </Card>
           ))}
         </div>
 
-        <div className="mt-8 text-center">
-          <Button asChild size="lg">
-            <Link to="/services">View All Services →</Link>
+        <div className="mt-10 text-center">
+          <Button asChild size="lg" variant="outline">
+            <Link to="/services">View All Services</Link>
           </Button>
         </div>
       </div>
