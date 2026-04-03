@@ -9,24 +9,7 @@ export const organizationSchema = {
   "email": "arslan@writingera.com",
   "image": "https://www.writingera.com/og.jpg",
   "priceRange": "$$",
-  "areaServed": ["PK", "UK", "US", "AE", "EU"],
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Sant Nagar",
-    "addressLocality": "Lahore",
-    "addressCountry": "PK"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "5000"
-  },
-  "sameAs": [
-    "https://facebook.com/writingera",
-    "https://twitter.com/writingera",
-    "https://linkedin.com/company/writingera",
-    "https://instagram.com/writingera"
-  ]
+  "areaServed": ["PK", "UK", "US", "AE", "EU"]
 };
 
 export const websiteSchema = {
