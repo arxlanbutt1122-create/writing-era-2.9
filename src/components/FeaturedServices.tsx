@@ -3,133 +3,127 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import assignmentImage from "@/assets/services/assignment-writing.jpg";
 import essayImage from "@/assets/services/featured-essay.jpg";
 import researchImage from "@/assets/services/featured-research.jpg";
-import thesisImage from "@/assets/services/featured-thesis.jpg";
-import businessImage from "@/assets/services/featured-business.jpg";
-import contentImage from "@/assets/services/featured-content.jpg";
-import editingImage from "@/assets/services/featured-editing.jpg";
+import dissertationImage from "@/assets/services/dissertation-writing.jpg";
+import websiteContentImage from "@/assets/services/website-content.jpg";
+import editingImage from "@/assets/services/academic-edit.jpg";
 
 const FeaturedServices = () => {
   const { convertPrice, convertPerWordPrice } = useCurrency();
 
   const services = [
     {
+      image: assignmentImage,
+      title: "Assignment Writing Service",
+      description:
+        "Structured help for university assignments, coursework, reports, and urgent academic tasks.",
+      basePkr: 2800,
+      suffix: "/task",
+      link: "/services/assignment-writing",
+    },
+    {
       image: essayImage,
-      title: "Essay Writing",
-      description: "A+ quality, plagiarism-free essays for all academic levels with proper citations.",
-      basePkr: 4200, // $15 * 280
+      title: "Essay Writing Service",
+      description:
+        "Plagiarism-free essays for reflective, argumentative, analytical, and comparative briefs.",
+      basePkr: 4200,
       suffix: "/page",
       link: "/services/essay-writing",
     },
     {
       image: researchImage,
-      title: "Research Papers",
-      description: "In-depth research papers with literature review, methodology, and analysis.",
-      basePkr: 5600, // $20 * 280
+      title: "Research Paper Writing",
+      description:
+        "Evidence-based papers with source evaluation, structure, citations, and academic formatting.",
+      basePkr: 5600,
       suffix: "/page",
       link: "/services/research-paper",
     },
     {
-      image: thesisImage,
-      title: "Thesis Writing",
-      description: "Expert thesis support for Masters and PhD with chapter-by-chapter assistance.",
-      basePkr: 42000, // $150 * 280
+      image: dissertationImage,
+      title: "Dissertation Writing",
+      description:
+        "Chapter-level dissertation support for proposals, reviews, methodology, analysis, and discussion.",
+      basePkr: 56000,
       suffix: "/chapter",
-      link: "/services/thesis-writing",
+      link: "/services/dissertation-writing",
     },
     {
-      image: businessImage,
-      title: "Business Plans",
-      description: "Investor-ready business plans with market analysis and financial projections.",
-      basePkr: 56000, // $200 * 280
-      suffix: "",
-      link: "/services/business-plan",
-    },
-    {
-      image: contentImage,
-      title: "Content Writing",
-      description: "SEO-optimized blog posts, articles, and website content that ranks.",
-      basePkr: 2800, // $10 * 280
-      suffix: "/500 words",
-      link: "/services/content-writing",
+      image: websiteContentImage,
+      title: "Website Content",
+      description:
+        "Commercial web copy for service pages, landing pages, and trust-building business websites.",
+      basePkr: 28000,
+      suffix: "/page",
+      link: "/services/website-content",
     },
     {
       image: editingImage,
-      title: "Editing & Proofreading",
-      description: "Professional editing for grammar, structure, and academic style.",
-      basePkr: 2240, // $8 * 280
+      title: "Academic Editing",
+      description:
+        "Editing and polishing for essays, reports, dissertations, and research drafts before submission.",
+      basePkr: 4200,
       suffix: "/page",
-      link: "/services/editing",
+      link: "/services/academic-editing",
     },
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-16 md:py-20">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-12 animate-fade-in-up">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-4">
-            Our Popular Services
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Choose from our comprehensive range of professional writing services, all backed by our quality guarantee
+        <div className="max-w-3xl mb-10">
+          <Badge className="mb-4">Top categories</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Popular Services</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            These featured cards now point to real service URLs that exist in your service data. That matters
+            for internal linking, crawling, and user flow. The strongest homepage links should usually point to
+            money pages such as assignment writing, essays, research papers, dissertation support, business
+            writing, and editing.
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {services.map((service, index) => (
-            <Link key={index} to={service.link} className="block">
-              <Card 
-                className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border overflow-hidden animate-fade-in cursor-pointer"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={service.image} 
-                    alt={service.title} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <Badge className="absolute top-3 right-3 bg-success/90 text-white border-none text-xs">
-                    FREE Turnitin
-                  </Badge>
-                </div>
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {services.map((service) => (
+            <Card key={service.link} className="overflow-hidden h-full flex flex-col">
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+                <Badge className="absolute top-3 left-3">FREE Turnitin</Badge>
+              </div>
+
               <CardHeader>
-                <h3 className="font-heading font-semibold text-xl text-foreground group-hover:text-primary transition-colors">
-                  {service.title}
-                </h3>
+                <h3 className="text-xl font-semibold">{service.title}</h3>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">{service.description}</p>
-                <div className="space-y-1">
-                  <p className="font-semibold text-primary text-lg">
-                    From {convertPrice(service.basePkr)}{service.suffix}
-                  </p>
-                  <p className="text-sm text-accent font-medium">
-                    or {convertPerWordPrice()}
-                  </p>
+
+              <CardContent className="space-y-3 flex-1">
+                <p className="text-muted-foreground">{service.description}</p>
+                <div className="text-sm text-muted-foreground">
+                  From <span className="font-semibold text-foreground">{convertPrice(service.basePkr)}</span>
+                  {service.suffix}
                 </div>
+                <div className="text-sm text-muted-foreground">or {convertPerWordPrice()}</div>
               </CardContent>
-              <CardFooter className="flex gap-2">
-                <Button variant="outline" className="flex-1 hover:bg-primary hover:text-primary-foreground">
-                  Learn More
+
+              <CardFooter className="flex gap-3">
+                <Button asChild variant="outline" className="flex-1">
+                  <Link to={service.link}>Learn More</Link>
                 </Button>
-                <Button asChild className="flex-1 bg-secondary hover:bg-secondary-light">
-                  <Link to="/contact" onClick={(e) => e.stopPropagation()}>Order Now</Link>
+                <Button asChild className="flex-1">
+                  <Link to={service.link}>Order Now</Link>
                 </Button>
               </CardFooter>
             </Card>
-            </Link>
           ))}
         </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-12">
-          <Button asChild size="lg" variant="outline" className="font-semibold">
-            <Link to="/services">
-              View All 45+ Services →
-            </Link>
+        <div className="mt-8 text-center">
+          <Button asChild size="lg">
+            <Link to="/services">View All Services →</Link>
           </Button>
         </div>
       </div>
