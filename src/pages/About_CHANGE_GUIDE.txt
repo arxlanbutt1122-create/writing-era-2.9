@@ -1,0 +1,29 @@
+Quick edit for src/pages/About.tsx
+
+1) Change this import:
+import { organizationSchema, webpageSchema } from "@/utils/structuredData";
+
+to:
+import { organizationSchema, webpageSchema, founderPersonSchema } from "@/utils/structuredData";
+
+2) Change the SEO title/description block to:
+<SEO
+  title="About WritingEra | Founder & CEO M. Arslan Asif"
+  description="Learn about WritingEra, founded by M. Arslan Asif, and explore our writing standards, quality process, and support for students and professionals worldwide."
+  path="/about"
+  keywords={["about writingera", "M. Arslan Asif", "Founder of WritingEra", "CEO of WritingEra", "academic writing company", "professional writing services"]}
+  schema={[
+    organizationSchema,
+    founderPersonSchema,
+    webpageSchema({
+      title: "About WritingEra | Founder & CEO M. Arslan Asif",
+      description: "Learn about WritingEra, founded by M. Arslan Asif, and explore our writing standards, quality process, and support for students and professionals worldwide.",
+      url: "https://www.writingera.com/about",
+    }),
+  ]}
+/>
+
+3) Change the visible founder heading and first founder paragraph to include the full name:
+Meet M. Arslan Asif - Founder & CEO
+
+Founded by M. Arslan Asif, WritingEra started as a small venture in Lahore, Pakistan. What began with helping a few local students has now grown into a global service supporting clients across the UK, UAE, USA, EU, and Pakistan.
