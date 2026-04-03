@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/product-tag/:slug*",
+      "destination": "/services",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
