@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import TrustBadges from "@/components/TrustBadges";
@@ -9,307 +11,363 @@ import Testimonials from "@/components/Testimonials";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Briefcase, FileText, GraduationCap, Layers3, Sparkles } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { organizationSchema, websiteSchema, webpageSchema } from "@/utils/structuredData";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CheckCircle2, Globe2, GraduationCap, Briefcase, MessageCircle } from "lucide-react";
 
-const textLink =
-  "font-semibold text-primary underline underline-offset-4 decoration-primary/60 transition hover:text-primary/80";
-
-const categoryCards = [
-  {
-    icon: BookOpen,
-    title: "Academic writing",
-    description:
-      "For assignments, essays, reports, coursework, lab reports, and day-to-day university submissions.",
-    links: [
-      { label: "Assignment writing", href: "/services/assignment-writing" },
-      { label: "Essay writing", href: "/services/essay-writing" },
-      { label: "Academic report writing", href: "/services/report-writing" },
-    ],
-  },
-  {
-    icon: GraduationCap,
-    title: "Research and postgraduate support",
-    description:
-      "For source-based research, thesis chapters, dissertation sections, literature reviews, and methodology work.",
-    links: [
-      { label: "Research paper writing", href: "/services/research-paper" },
-      { label: "Thesis writing", href: "/services/thesis-writing" },
-      { label: "Dissertation writing", href: "/services/dissertation-writing" },
-    ],
-  },
-  {
-    icon: Briefcase,
-    title: "Business and content work",
-    description:
-      "For business plans, website copy, SEO content, articles, and conversion-focused commercial writing.",
-    links: [
-      { label: "Business plan writing", href: "/services/business-plan" },
-      { label: "Website content", href: "/services/website-content" },
-      { label: "SEO content writing", href: "/services/seo-content" },
-    ],
-  },
-  {
-    icon: Layers3,
-    title: "Career and custom projects",
-    description:
-      "For resumes, cover letters, personal statements, coding assignments, and custom project briefs.",
-    links: [
-      { label: "Resume / CV writing", href: "/services/resume-cv-writing" },
-      { label: "Cover letter support", href: "/services/cover-letter" },
-      { label: "Coding assignment help", href: "/services/coding-assignment" },
-    ],
-  },
+const quickOrderServices = [
+  { label: "Assignment Writing Service", value: "assignment-writing", href: "/services/assignment-writing" },
+  { label: "Essay Writing Service", value: "essay-writing", href: "/services/essay-writing" },
+  { label: "Research Paper Writing", value: "research-paper", href: "/services/research-paper" },
+  { label: "Dissertation Writing", value: "dissertation-writing", href: "/services/dissertation-writing" },
+  { label: "Academic Report Writing", value: "report-writing", href: "/services/report-writing" },
+  { label: "Proofreading Service", value: "proofreading", href: "/services/proofreading" },
+  { label: "Business Plan Writing", value: "business-plan", href: "/services/business-plan" },
+  { label: "Website Content", value: "website-content", href: "/services/website-content" },
+  { label: "Resume / CV Writing", value: "resume-cv-writing", href: "/services/resume-cv-writing" },
+  { label: "Cover Letter", value: "cover-letter", href: "/services/cover-letter" },
 ];
 
-const comparisonRows = [
-  {
-    need: "Urgent coursework, daily university tasks, and structured submissions",
-    page: { label: "Assignment Writing Service", href: "/services/assignment-writing" },
-    notes: "Best for deadline-driven academic work with clear instructions and fast turnaround.",
-  },
-  {
-    need: "Argument-led essays, reflective pieces, and critical discussion",
-    page: { label: "Essay Writing Service", href: "/services/essay-writing" },
-    notes: "Useful when the brief needs structure, position, evidence, and polished academic style.",
-  },
-  {
-    need: "Research projects, source evaluation, literature handling, and evidence-based writing",
-    page: { label: "Research Paper Writing", href: "/services/research-paper" },
-    notes: "A strong starting point for research-heavy work and academic projects built around sources.",
-  },
-  {
-    need: "Long-form postgraduate work with chapters, frameworks, and analysis",
-    page: { label: "Dissertation Writing", href: "/services/dissertation-writing" },
-    notes: "Ideal for master’s and doctoral support where depth, structure, and consistency matter most.",
-  },
-  {
-    need: "Final-draft polishing before submission or client delivery",
-    page: { label: "Proofreading Services", href: "/services/proofreading" },
-    notes: "Best for grammar, clarity, flow, formatting, and reducing avoidable mistakes.",
-  },
-  {
-    need: "Business plans, service-page copy, SEO content, and commercial writing",
-    page: { label: "Business and content services", href: "/services" },
-    notes: "Start here if the project is commercial rather than academic and needs a broader options view.",
-  },
-];
+const pageOptions = Array.from({ length: 20 }, (_, i) => ({
+  label: `${i + 1} Page${i === 0 ? "" : "s"}`,
+  value: String(i + 1),
+}));
+
+const levelOptions = ["High School", "College", "Undergraduate", "Master's", "PhD", "Professional"];
+const deadlineOptions = ["6 Hours", "12 Hours", "24 Hours", "2 Days", "3 Days", "5 Days", "7 Days"];
 
 const Index = () => {
-  const homeSchema = [
-    organizationSchema,
-    websiteSchema,
-    webpageSchema({
-      title: "WritingEra | Academic and Business Writing Services",
-      description:
-        "Professional writing support for assignments, essays, research papers, dissertations, editing, business plans, and web content.",
-      url: "https://www.writingera.com/",
-    }),
-  ];
+  const [service, setService] = useState(quickOrderServices[0].value);
+  const [level, setLevel] = useState("Undergraduate");
+  const [pages, setPages] = useState("2");
+  const [deadline, setDeadline] = useState("3 Days");
+
+  const selectedService = quickOrderServices.find((item) => item.value === service) ?? quickOrderServices[0];
+
+  const handleQuickOrder = () => {
+    const message = [
+      "Hello WritingEra, I want to place a new order.",
+      "",
+      `Service: ${selectedService.label}`,
+      `Academic level: ${level}`,
+      `Number of pages: ${pages}`,
+      `Deadline: ${deadline}`,
+      "",
+      "Please share price and next steps.",
+    ].join("\n");
+
+    window.open(`https://wa.me/923234827157?text=${encodeURIComponent(message)}`, "_blank");
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="WritingEra | Academic and Business Writing Services"
-        description="Professional writing support for assignments, essays, research papers, dissertations, editing, business plans, website content, and career documents."
+        title="WritingEra | Academic & Business Writing Services"
+        description="WritingEra offers assignment writing service support, essay writing, research paper help, dissertation assistance, report writing, proofreading, and business writing for students and professionals worldwide."
         path="/"
-        schema={homeSchema}
+        keywords={[
+          "assignment writing service",
+          "essay writing service",
+          "research paper writing",
+          "dissertation writing service",
+          "academic report writing",
+          "proofreading service",
+          "business writing services",
+          "resume writing service",
+          "website content writing",
+          "cover letter writing",
+        ]}
+        schema={[
+          organizationSchema,
+          websiteSchema,
+          webpageSchema({
+            title: "WritingEra | Academic & Business Writing Services",
+            description:
+              "WritingEra offers academic and business writing services including assignment writing, essays, research papers, dissertations, proofreading, editing, and business content.",
+            url: "https://www.writingera.com/",
+          }),
+        ]}
       />
 
       <Navigation />
       <HeroSection />
       <TrustBadges />
       <UniversityCarousel />
-
-      <section className="bg-background py-16 lg:py-20">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-5xl text-center">
-            <span className="inline-flex items-center rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-              Global academic and business writing support
-            </span>
-            <h2 className="mt-6 text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-              Clear writing help for students, researchers, professionals, and growing businesses
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              WritingEra supports clients who need dependable help with university assignments, essays, research papers,
-              dissertations, reports, editing, business documents, and career materials. Whether the brief comes from the
-              <span className="font-semibold text-foreground"> UK</span>, the <span className="font-semibold text-foreground">USA</span>, the <span className="font-semibold text-foreground">UAE</span>, across <span className="font-semibold text-foreground">Europe</span>, or from global clients elsewhere, the focus stays the same: clear communication, original work, and service pages that are easy to follow.
-            </p>
-            <p className="mt-5 text-lg leading-8 text-muted-foreground">
-              Clients usually start with{" "}
-              <Link to="/services/assignment-writing" className={textLink}>
-                assignment writing
-              </Link>
-              ,{" "}
-              <Link to="/services/essay-writing" className={textLink}>
-                essay writing
-              </Link>
-              ,{" "}
-              <Link to="/services/research-paper" className={textLink}>
-                research paper support
-              </Link>
-              , or{" "}
-              <Link to="/services/dissertation-writing" className={textLink}>
-                dissertation help
-              </Link>
-              . For commercial work, visitors can move directly to{" "}
-              <Link to="/services/business-plan" className={textLink}>
-                business plan writing
-              </Link>
-              ,{" "}
-              <Link to="/services/website-content" className={textLink}>
-                website content
-              </Link>
-              ,{" "}
-              <Link to="/services/seo-content" className={textLink}>
-                SEO content writing
-              </Link>
-              ,{" "}
-              <Link to="/services/resume-cv-writing" className={textLink}>
-                resume / CV writing
-              </Link>
-              , and{" "}
-              <Link to="/services/cover-letter" className={textLink}>
-                cover letter support
-              </Link>
-              .
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {categoryCards.map((card) => {
-              const Icon = card.icon;
-              return (
-                <Card key={card.title} className="h-full border-primary/10 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-                  <CardHeader className="space-y-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    <CardTitle className="text-2xl">{card.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="mb-5 text-sm leading-7 text-muted-foreground">{card.description}</p>
-                    <div className="space-y-3">
-                      {card.links.map((item) => (
-                        <Link
-                          key={item.href}
-                          to={item.href}
-                          className="flex items-center justify-between rounded-xl border border-primary/10 px-4 py-3 text-sm font-semibold text-foreground transition hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
-                        >
-                          <span>{item.label}</span>
-                          <ArrowRight className="h-4 w-4" />
-                        </Link>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       <FeaturedServices />
-
-      <section className="bg-muted/30 py-16 lg:py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-            <div>
-              <span className="inline-flex items-center rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-                A simpler route to the right page
-              </span>
-              <h2 className="mt-6 text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-                Start from the service that matches your brief, not from guesswork
-              </h2>
-              <p className="mt-6 text-lg leading-8 text-muted-foreground">
-                A strong homepage should help visitors choose the right service quickly. Some people already know they need
-                assignment help. Others only know they have a deadline, a subject, and a word count. This section gives a
-                direct guide so clients can move from the homepage to the page that best fits the task, the academic level,
-                and the deadline.
-              </p>
-              <div className="mt-8 overflow-hidden rounded-3xl border border-primary/10 bg-background shadow-sm">
-                <div className="overflow-x-auto">
-                  <table className="min-w-full text-left">
-                    <thead className="bg-primary/5 text-sm uppercase tracking-wide text-muted-foreground">
-                      <tr>
-                        <th className="px-5 py-4 font-semibold">What you need</th>
-                        <th className="px-5 py-4 font-semibold">Best page to open</th>
-                        <th className="px-5 py-4 font-semibold">Why this is the right start</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {comparisonRows.map((row) => (
-                        <tr key={row.page.href} className="border-t border-primary/10 align-top">
-                          <td className="px-5 py-4 text-sm leading-7 text-foreground">{row.need}</td>
-                          <td className="px-5 py-4 text-sm leading-7">
-                            <Link to={row.page.href} className={textLink}>
-                              {row.page.label}
-                            </Link>
-                          </td>
-                          <td className="px-5 py-4 text-sm leading-7 text-muted-foreground">{row.notes}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-            <Card className="border-primary/10 shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-2xl">Why clients and students choose WritingEra</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-5">
-                {[
-                  "Clear communication before the work starts and after the draft is delivered.",
-                  "Support for urgent, standard, and long-term projects across academic and professional categories.",
-                  "A better path from homepage to service page, so visitors reach the right option without confusion.",
-                  "Useful for students aiming for stronger grades, cleaner structure, better research flow, and more polished final submission quality.",
-                ].map((point) => (
-                  <div key={point} className="flex items-start gap-3">
-                    <Sparkles className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
-                    <p className="text-sm leading-7 text-muted-foreground">{point}</p>
-                  </div>
-                ))}
-
-                <div className="rounded-2xl bg-primary/5 p-5">
-                  <h3 className="text-lg font-semibold text-foreground">Popular starting points</h3>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                    {[
-                      { label: "Assignment Writing Service", href: "/services/assignment-writing" },
-                      { label: "Essay Writing Service", href: "/services/essay-writing" },
-                      { label: "Research Paper Writing", href: "/services/research-paper" },
-                      { label: "Dissertation Writing", href: "/services/dissertation-writing" },
-                      { label: "Proofreading Services", href: "/services/proofreading" },
-                      { label: "Business Plan Writing", href: "/services/business-plan" },
-                    ].map((item) => (
-                      <Link key={item.href} to={item.href} className={textLink}>
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-3 pt-2">
-                  <Button asChild>
-                    <Link to="/services">Browse All Services</Link>
-                  </Button>
-                  <Button asChild variant="outline">
-                    <Link to="/contact">Talk to Our Team</Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       <HowItWorks />
       <WhyChooseUs />
       <Testimonials />
+
+      <section className="py-16 md:py-20 border-y border-border/60 bg-muted/30">
+        <div className="container mx-auto px-4 grid lg:grid-cols-[1.35fr_0.95fr] gap-6 items-start">
+          <Card className="border-border/60 shadow-sm">
+            <CardHeader className="space-y-4">
+              <div className="inline-flex w-fit rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+                Global academic and business writing support
+              </div>
+              <CardTitle className="text-3xl md:text-4xl leading-tight">
+                Clear writing help for students, researchers, professionals, and growing businesses
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-5 text-muted-foreground leading-relaxed text-[17px]">
+              <p>
+                WritingEra helps clients who need dependable support with university assignments, essays, research papers,
+                dissertations, reports, editing, business documents, and career materials. Instead of sending visitors through
+                vague pages, this section gives them a direct path to the service that matches their brief, deadline, and
+                academic or professional level.
+              </p>
+
+              <p>
+                Whether the work is for a university in the <strong className="text-foreground">UK</strong>, the <strong className="text-foreground">USA</strong>, the <strong className="text-foreground">UAE</strong>, across <strong className="text-foreground">Europe</strong>, or for international clients elsewhere,
+                the goal stays the same: clear communication, original work, and a smooth ordering path. Clients usually start with {" "}
+                <Link to="/services/assignment-writing" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  assignment writing
+                </Link>, {" "}
+                <Link to="/services/essay-writing" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  essay writing
+                </Link>, {" "}
+                <Link to="/services/research-paper" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  research paper support
+                </Link>, or {" "}
+                <Link to="/services/dissertation-writing" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  dissertation help
+                </Link>{" "}
+                when they have urgent academic deadlines.
+              </p>
+
+              <p>
+                For professional and commercial work, visitors can move directly to {" "}
+                <Link to="/services/business-plan" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  business plan writing
+                </Link>, {" "}
+                <Link to="/services/website-content" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  website content
+                </Link>, {" "}
+                <Link to="/services/resume-cv-writing" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  resume / CV writing
+                </Link>, and {" "}
+                <Link to="/services/cover-letter" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  cover letter support
+                </Link>. If the draft is already written and just needs polishing, the best next step is {" "}
+                <Link to="/services/proofreading" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  proofreading
+                </Link>{" "}
+                or {" "}
+                <Link to="/services/academic-editing" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  academic editing
+                </Link>.
+              </p>
+
+              <p>
+                You can also browse the {" "}
+                <Link to="/services" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  full services page
+                </Link>{" "}
+                to compare categories before ordering. The idea is simple: help every visitor reach the right page faster, whether
+                they need urgent academic assistance, business writing, or final-draft improvement.
+              </p>
+
+              <div className="grid gap-3 pt-2 sm:grid-cols-2 xl:grid-cols-3">
+                <Link to="/services/assignment-writing" className="rounded-2xl border border-border/60 bg-background p-4 transition hover:border-primary/40 hover:shadow-sm">
+                  <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
+                    <GraduationCap className="h-4 w-4 text-primary" />
+                    Academic work
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Assignments, essays, reports, dissertations, case studies, and research writing.
+                  </p>
+                </Link>
+                <Link to="/services/business-plan" className="rounded-2xl border border-border/60 bg-background p-4 transition hover:border-primary/40 hover:shadow-sm">
+                  <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
+                    <Briefcase className="h-4 w-4 text-primary" />
+                    Professional work
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Business plans, website copy, resumes, cover letters, and content for brands.
+                  </p>
+                </Link>
+                <Link to="/contact" className="rounded-2xl border border-border/60 bg-background p-4 transition hover:border-primary/40 hover:shadow-sm">
+                  <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
+                    <Globe2 className="h-4 w-4 text-primary" />
+                    International clients
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Support tailored for global universities, international students, and remote clients.
+                  </p>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border/60 shadow-sm">
+            <CardHeader className="space-y-3">
+              <div className="inline-flex w-fit rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+                Quick order on WhatsApp
+              </div>
+              <CardTitle className="text-2xl leading-tight">Tell us what you need and send it straight to our WhatsApp</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid gap-2">
+                <Label htmlFor="home-service">What do you need?</Label>
+                <Select value={service} onValueChange={setService}>
+                  <SelectTrigger id="home-service">
+                    <SelectValue placeholder="Select a service" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {quickOrderServices.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="home-level">Academic / project level</Label>
+                  <Select value={level} onValueChange={setLevel}>
+                    <SelectTrigger id="home-level">
+                      <SelectValue placeholder="Select level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {levelOptions.map((item) => (
+                        <SelectItem key={item} value={item}>
+                          {item}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="home-pages">Number of pages</Label>
+                  <Select value={pages} onValueChange={setPages}>
+                    <SelectTrigger id="home-pages">
+                      <SelectValue placeholder="Select pages" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {pageOptions.map((item) => (
+                        <SelectItem key={item.value} value={item.value}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="home-deadline">Deadline</Label>
+                <Select value={deadline} onValueChange={setDeadline}>
+                  <SelectTrigger id="home-deadline">
+                    <SelectValue placeholder="Select deadline" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {deadlineOptions.map((item) => (
+                      <SelectItem key={item} value={item}>
+                        {item}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="rounded-2xl border border-border/60 bg-muted/40 p-4 text-sm text-muted-foreground">
+                This quick form prepares a ready message for WhatsApp so your team gets the service, level,
+                pages, and deadline in one go.
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <Button onClick={handleQuickOrder} className="sm:flex-1 gap-2">
+                  <MessageCircle className="h-4 w-4" />
+                  Send to WhatsApp
+                </Button>
+                <Button asChild variant="outline" className="sm:flex-1">
+                  <Link to={`/order/${selectedService.value}`}>Open full order form</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl space-y-5">
+            <div className="inline-flex w-fit rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+              Popular service paths
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
+              Start from the service that matches your brief, deadline, and document type
+            </h2>
+            <p className="text-muted-foreground text-[17px] leading-relaxed">
+              These internal links take visitors directly to the pages most often needed for coursework, essays,
+              research, editing, business writing, and career documents. Choose the closest match below and continue
+              to the dedicated service page for details, pricing direction, and the order route.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 mt-8">
+            {[
+              {
+                title: "Assignments and coursework",
+                links: [
+                  { label: "Assignment Writing Service", href: "/services/assignment-writing" },
+                  { label: "Academic Report Writing", href: "/services/report-writing" },
+                  { label: "Case Study Analysis", href: "/services/case-study" },
+                ],
+              },
+              {
+                title: "Essays and research",
+                links: [
+                  { label: "Essay Writing Service", href: "/services/essay-writing" },
+                  { label: "Research Paper Writing", href: "/services/research-paper" },
+                  { label: "Literature Review", href: "/services/literature-review" },
+                ],
+              },
+              {
+                title: "Dissertations and editing",
+                links: [
+                  { label: "Dissertation Writing", href: "/services/dissertation-writing" },
+                  { label: "Proofreading", href: "/services/proofreading" },
+                  { label: "Academic Editing", href: "/services/academic-editing" },
+                ],
+              },
+              {
+                title: "Business and career writing",
+                links: [
+                  { label: "Business Plan Writing", href: "/services/business-plan" },
+                  { label: "Website Content", href: "/services/website-content" },
+                  { label: "Resume / CV Writing", href: "/services/resume-cv-writing" },
+                ],
+              },
+            ].map((group) => (
+              <Card key={group.title} className="border-border/60 shadow-sm">
+                <CardHeader>
+                  <CardTitle className="text-xl">{group.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {group.links.map((item) => (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className="flex items-start gap-2 rounded-xl border border-transparent px-2 py-2 text-sm font-medium text-primary underline underline-offset-4 transition hover:border-primary/20 hover:bg-primary/5"
+                    >
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <span>{item.label}</span>
+                    </Link>
+                  ))}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <CTASection />
       <Footer />
     </div>
