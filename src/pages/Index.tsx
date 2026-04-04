@@ -109,68 +109,94 @@ const Index = () => {
                 Global academic and business writing support
               </div>
               <CardTitle className="text-3xl md:text-4xl leading-tight">
-                Clear writing help for students, researchers, professionals, and growing businesses
+                Trusted writing help for academic, professional, and business needs
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-5 text-muted-foreground leading-relaxed text-[17px]">
               <p>
-                WritingEra helps clients who need dependable support with university assignments, essays,
-                research papers, dissertations, reports, editing, business documents, and career materials.
-                Instead of sending visitors through vague pages, this section gives them a direct path to the
-                service that matches their brief, deadline, and academic or professional level.
+                WritingEra supports students, researchers, professionals, and businesses that need reliable help with academic work,
+                business documents, career materials, and polished final drafts. Whether you are working against a short deadline
+                or preparing a larger project, the goal is simple: connect you with the right service page quickly and clearly.
               </p>
 
               <p>
-                Whether the work is for a university in the <strong className="text-foreground">UK</strong>,
-                the <strong className="text-foreground">USA</strong>, the <strong className="text-foreground">UAE</strong>,
-                across <strong className="text-foreground">Europe</strong>, or for international clients elsewhere,
-                the goal stays the same: clear communication, original work, and a smooth ordering path.
-                Clients usually start with <Link to="/services/assignment-writing" className="font-medium text-primary hover:underline">assignment writing</Link>,
-                <Link to="/services/essay-writing" className="font-medium text-primary hover:underline"> essay writing</Link>,
-                <Link to="/services/research-paper" className="font-medium text-primary hover:underline"> research paper support</Link>,
-                or <Link to="/services/dissertation-writing" className="font-medium text-primary hover:underline"> dissertation help</Link>
-                when they have urgent academic deadlines.
+                For academic work, many clients begin with {" "}
+                <Link to="/services/assignment-writing" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  Assignment Writing Service
+                </Link>{" "}
+                when they need structured coursework support, {" "}
+                <Link to="/services/essay-writing" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  Essay Writing Service
+                </Link>{" "}
+                for arguments and reflective tasks, {" "}
+                <Link to="/services/research-paper" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  Research Paper Writing
+                </Link>{" "}
+                for source-based projects, and {" "}
+                <Link to="/services/dissertation-writing" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  Dissertation Writing
+                </Link>{" "}
+                for long-form academic work.
               </p>
 
               <p>
-                For professional and commercial work, visitors can move directly to
-                <Link to="/services/business-plan" className="font-medium text-primary hover:underline"> business plan writing</Link>,
-                <Link to="/services/website-content" className="font-medium text-primary hover:underline"> website content</Link>,
-                <Link to="/services/resume-cv-writing" className="font-medium text-primary hover:underline"> resume / CV writing</Link>,
-                and <Link to="/services/cover-letter" className="font-medium text-primary hover:underline"> cover letter support</Link>.
-                If the draft is already written and just needs polishing, the best next step is
-                <Link to="/services/proofreading" className="font-medium text-primary hover:underline"> proofreading</Link> or
-                <Link to="/services/academic-editing" className="font-medium text-primary hover:underline"> academic editing</Link>.
+                If your draft already exists and only needs refinement, you can move straight to {" "}
+                <Link to="/services/proofreading" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  Proofreading
+                </Link>{" "}
+                or {" "}
+                <Link to="/services/academic-editing" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  Academic Editing
+                </Link>. For professional and commercial requirements, popular starting points include {" "}
+                <Link to="/services/business-plan" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  Business Plan Writing
+                </Link>, {" "}
+                <Link to="/services/website-content" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  Website Content
+                </Link>, {" "}
+                <Link to="/services/resume-cv-writing" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  Resume / CV Writing
+                </Link>, and {" "}
+                <Link to="/services/cover-letter" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  Cover Letter Support
+                </Link>.
               </p>
 
-              <div className="grid sm:grid-cols-3 gap-3 pt-2">
-                <div className="rounded-2xl border border-border/60 bg-background p-4">
+              <p>
+                We work with clients from the <strong className="text-foreground">UK</strong>, the <strong className="text-foreground">USA</strong>, the <strong className="text-foreground">UAE</strong>, across <strong className="text-foreground">Europe</strong>, and with international clients worldwide. If you want to compare everything first, visit the {" "}
+                <Link to="/services" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                  full services page
+                </Link>. If you already know what you need, you can go directly to the matching page and place your order with clearer instructions.
+              </p>
+
+              <div className="grid gap-3 pt-2 sm:grid-cols-2 xl:grid-cols-3">
+                <Link to="/services/assignment-writing" className="rounded-2xl border border-border/60 bg-background p-4 transition hover:border-primary/40 hover:shadow-sm">
                   <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
                     <GraduationCap className="h-4 w-4 text-primary" />
                     Academic work
                   </div>
-                  <p className="text-sm">
+                  <p className="text-sm text-muted-foreground">
                     Assignments, essays, reports, dissertations, case studies, and research writing.
                   </p>
-                </div>
-                <div className="rounded-2xl border border-border/60 bg-background p-4">
+                </Link>
+                <Link to="/services/business-plan" className="rounded-2xl border border-border/60 bg-background p-4 transition hover:border-primary/40 hover:shadow-sm">
                   <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
                     <Briefcase className="h-4 w-4 text-primary" />
                     Professional work
                   </div>
-                  <p className="text-sm">
+                  <p className="text-sm text-muted-foreground">
                     Business plans, website copy, resumes, cover letters, and content for brands.
                   </p>
-                </div>
-                <div className="rounded-2xl border border-border/60 bg-background p-4">
+                </Link>
+                <Link to="/contact" className="rounded-2xl border border-border/60 bg-background p-4 transition hover:border-primary/40 hover:shadow-sm">
                   <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
                     <Globe2 className="h-4 w-4 text-primary" />
                     International clients
                   </div>
-                  <p className="text-sm">
+                  <p className="text-sm text-muted-foreground">
                     Support tailored for global universities, international students, and remote clients.
                   </p>
-                </div>
+                </Link>
               </div>
             </CardContent>
           </Card>
@@ -272,16 +298,15 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl space-y-5">
             <div className="inline-flex w-fit rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-              Popular reasons clients choose WritingEra
+              Popular service paths
             </div>
             <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
-              One platform for coursework, research, editing, business writing, and career documents
+              Start from the service that matches your brief, deadline, and document type
             </h2>
             <p className="text-muted-foreground text-[17px] leading-relaxed">
-              Some visitors need urgent university help, while others arrive for business copy, website content,
-              personal statements, or professional editing. A strong homepage should help each visitor understand
-              where to go next. That is why WritingEra points directly to the pages that people request most often,
-              rather than hiding them behind general promises.
+              These internal links take visitors directly to the pages most often needed for coursework, essays,
+              research, editing, business writing, and career documents. Choose the closest match below and continue
+              to the dedicated service page for details, pricing direction, and the order route.
             </p>
           </div>
 
@@ -329,9 +354,9 @@ const Index = () => {
                     <Link
                       key={item.href}
                       to={item.href}
-                      className="flex items-start gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                      className="flex items-start gap-2 rounded-xl border border-transparent px-2 py-2 text-sm font-medium text-primary underline underline-offset-4 transition hover:border-primary/20 hover:bg-primary/5"
                     >
-                      <CheckCircle2 className="h-4 w-4 mt-0.5 text-primary" />
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                       <span>{item.label}</span>
                     </Link>
                   ))}
