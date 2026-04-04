@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { ArrowRight } from "lucide-react";
 import assignmentImage from "@/assets/services/assignment-writing.jpg";
 import essayImage from "@/assets/services/featured-essay.jpg";
 import researchImage from "@/assets/services/featured-research.jpg";
@@ -65,46 +66,61 @@ const FeaturedServices = () => {
   ];
 
   return (
-    <section className="py-16 md:py-20">
+    <section className="bg-background py-16 lg:py-20">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mb-10">
-          <Badge variant="secondary" className="mb-4 bg-primary/10 text-primary hover:bg-primary/10">
-            Popular starting points
+        <div className="mx-auto max-w-3xl text-center">
+          <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/10">
+            Popular services
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
-            Services clients request most often
+          <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+            Start from the pages clients open most often
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Start with the page that fits your brief. These are some of the most requested services for academic work,
-            research-led projects, final-draft editing, and commercial writing.
+          <p className="mt-5 text-lg leading-8 text-muted-foreground">
+            These service cards point directly to high-intent pages so visitors can move from the homepage to the exact
+            service they need without extra clicks.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {services.map((service) => (
-            <Card key={service.title} className="overflow-hidden border-border/60 shadow-sm hover:shadow-md transition-shadow">
-              <div className="aspect-[16/10] overflow-hidden bg-muted">
-                <img src={service.image} alt={service.title} className="h-full w-full object-cover" />
-              </div>
-              <CardHeader className="space-y-3">
-                <Badge variant="outline" className="w-fit border-primary/30 text-primary">
-                  FREE Turnitin
-                </Badge>
-                <h3 className="text-xl font-semibold text-foreground leading-snug">{service.title}</h3>
+            <Card key={service.link} className="group overflow-hidden border-primary/10 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+              <Link to={service.link} className="block overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="h-56 w-full object-cover transition duration-300 group-hover:scale-105"
+                />
+              </Link>
+
+              <CardHeader className="space-y-4">
+                <div className="flex items-center justify-between gap-3">
+                  <Badge className="bg-primary/10 text-primary hover:bg-primary/10">FREE Turnitin</Badge>
+                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Direct service page</span>
+                </div>
+
+                <Link to={service.link} className="group/title inline-flex items-center gap-2 text-2xl font-semibold leading-tight text-foreground transition hover:text-primary">
+                  <span>{service.title}</span>
+                  <ArrowRight className="h-5 w-5 transition group-hover/title:translate-x-1" />
+                </Link>
               </CardHeader>
+
               <CardContent className="space-y-4">
-                <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-                <div className="text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">From {convertPrice(service.basePkr)}</span> {service.suffix}
-                  <div>or {convertPerWordPrice()}</div>
+                <p className="text-sm leading-7 text-muted-foreground">{service.description}</p>
+                <div className="rounded-2xl bg-primary/5 p-4">
+                  <p className="text-sm text-muted-foreground">Starting from</p>
+                  <p className="mt-1 text-2xl font-bold text-foreground">
+                    {convertPrice(service.basePkr)} <span className="text-base font-medium text-muted-foreground">{service.suffix}</span>
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">or {convertPerWordPrice()}</p>
                 </div>
               </CardContent>
+
               <CardFooter className="flex gap-3">
-                <Button asChild variant="outline" className="flex-1">
+                <Button asChild className="flex-1">
                   <Link to={service.link}>Learn More</Link>
                 </Button>
-                <Button asChild className="flex-1">
-                  <Link to={`/order${service.link.replace("/services", "")}`}>Order Now</Link>
+                <Button asChild variant="outline" className="flex-1">
+                  <Link to={`/order/${service.link.replace("/services/", "")}`}>Order Now</Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -112,7 +128,7 @@ const FeaturedServices = () => {
         </div>
 
         <div className="mt-10 text-center">
-          <Button asChild size="lg">
+          <Button asChild size="lg" variant="outline">
             <Link to="/services">View All Services</Link>
           </Button>
         </div>
