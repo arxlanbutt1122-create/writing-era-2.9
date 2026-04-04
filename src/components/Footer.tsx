@@ -229,7 +229,10 @@ const Footer = () => {
               <MessageCircle className="h-5 w-5 text-white" />
             </a>
             <a 
-              href="#" 
+              href="https://www.facebook.com/profile.php?id=61579849341845" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label="Follow WritingEra on Facebook"
               className="w-10 h-10 bg-white/5 hover:bg-primary rounded-full flex items-center justify-center transition-colors border border-white/10 hover:border-primary"
             >
               <Facebook className="h-5 w-5 text-white" />
