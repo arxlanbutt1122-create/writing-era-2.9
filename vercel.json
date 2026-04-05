@@ -1,35 +1,15 @@
 {
+  "redirects": [
+    {
+      "source": "/product-tag/:slug*",
+      "destination": "/services",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)\.(jpg|jpeg|png|webp|svg|woff2)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/(robots.txt|sitemap.xml)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/product-tag/:slug",
-      "destination": "/services",
-      "permanent": true
     }
   ]
 }
