@@ -4,6 +4,8 @@ const SITE_NAME = "WritingEra";
 const SITE_URL = "https://www.writingera.com";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og.jpg`;
 
+type SchemaInput = Record<string, unknown> | Array<Record<string, unknown>>;
+
 type SEOProps = {
   title: string;
   description: string;
@@ -11,13 +13,13 @@ type SEOProps = {
   image?: string;
   type?: "website" | "article";
   noindex?: boolean;
-  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+  schema?: SchemaInput;
 };
 
-const toAbsoluteUrl = (path?: string) => {
-  if (!path) return SITE_URL;
-  if (path.startsWith("http://") || path.startsWith("https://")) return path;
-  return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+const toAbsoluteUrl = (value?: string) => {
+  if (!value) return SITE_URL;
+  if (value.startsWith("http://") || value.startsWith("https://")) return value;
+  return `${SITE_URL}${value.startsWith("/") ? value : `/${value}`}`;
 };
 
 const SEO = ({
@@ -31,7 +33,9 @@ const SEO = ({
 }: SEOProps) => {
   const canonicalUrl = toAbsoluteUrl(path);
   const imageUrl = toAbsoluteUrl(image);
-  const robots = noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+  const robots = noindex
+    ? "noindex, nofollow"
+    : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
   return (
     <Helmet>
@@ -56,9 +60,7 @@ const SEO = ({
       <meta name="twitter:image:alt" content={title} />
 
       {schema && (
-        <script type="application/ld+json">
-          {JSON.stringify(schema)}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
       )}
     </Helmet>
   );
